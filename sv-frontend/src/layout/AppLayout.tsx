@@ -8,7 +8,7 @@ function AppLayout() {
     <>
       <div className="grid h-screen grid-rows-[auto_1fr_auto] relative font-base">
         <Header />
-        <Outlet />
+        <Outlet/>
         <Footer />
       </div>
     </>
