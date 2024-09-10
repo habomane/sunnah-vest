@@ -19,7 +19,7 @@ function Header() {
         <img src={menu} className="h-[5vh] active:shadow-lg" alt="Menu button" onClick={() => setNavOpen(!navOpen)} />
       </div>
 
-      <div className={navOpen ? 'fixed inset-0 w-full h-full' : 'fixed invisible'}>
+      <div className={navOpen ? 'fixed inset-0 w-full h-full z-50' : 'fixed invisible'}>
         <div className={`absolute duration-500 ease-out transition-all inset-0 w-full h-full bg-gray-900 ${navOpen ? 'opacity-50': 'opacity-0'}`}></div>
         <div className={`absolute duration-500 ease-out transition-all top-0 right-0 w-[45vw] h-full bg-slate-100 ${navOpen ? '': 'translate-x-1/2'}`}>
         <img src={close} className="h-[5vh] mx-2 my-5 active:shadow-lg" alt="Close menu button" onClick={() => setNavOpen(!navOpen)} />
