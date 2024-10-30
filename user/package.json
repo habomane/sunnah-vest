@@ -1,0 +1,32 @@
+{
+  "engines": {
+    "node": ">=20.6.0"
+  },
+  "name": "sunnah-vest-user-microservice",
+  "version": "1.0.0",
+  "description": "User service for the Sunnah Vest platform.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "dev": "node --env-file=.env --watch -r ts-node/register src/index.ts",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Habso Omane",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.8.4",
+    "eslint": "^9.13.0",
+    "globals": "^15.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.12.2"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.14.0",
+    "express": "^4.21.1"
+  }
+}
