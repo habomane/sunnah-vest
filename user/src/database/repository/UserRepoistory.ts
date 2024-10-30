@@ -18,30 +18,33 @@ export class UserRepository {
 
     }
 
-    async getUserFromKey(userKey: UUID) : Promise<User> {
+    async getUserFromKey(userKey: string) : Promise<User | null>  {
         try {
-            return undefined;
+            return null;
         }
         catch(error) {
             console.log(error)
-            return undefined;
+            return null;
         }
 
     }
 
-    async put(user: User) : Promise<User> {
+    async put(user: User) : Promise<User | null> {
         // implement here 
+        return null;
     }
 
-    async patch(userKey: string, user: User) : Promise<User> {
+    async patch(userKey: string, user: User) : Promise<User | null> {
         // implement here 
+        return null;
     }
     async delete(userKey: UUID) : Promise<void> {
         // implement here 
     }
 
-    async validateUser(emailAddress: string, pwdHash: string) : Promise<User> {
+    async validateUser(emailAddress: string, pwdHash: string) : Promise<User | null> {
         // implement here 
+        return null;
     }
 
 

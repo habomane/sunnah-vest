@@ -1,21 +1,15 @@
-import express, { Request, Response } from 'express';
-// const app = express();
-// const port = process.env.PORT || 3000;
+import express, { Request, Response } from 'express'
+import { userRouter } from './routes';
+import { validateSession } from './middleware';
 
-// const getData = async () => {  
-//   try {
-//     const data = await db.execute("SELECT * from users"); return data.toJSON()
-//   } 
-// catch(e) {
-//   return e; 
-// }} 
-// app.get('/', (req: Request, res: Response) => {
-//   const data = getData();
-//   res.send(data);
-// });
+const app = express();
+const port = process.env.PORT || 3000;
 
-// app.listen(port, () => {
-//   console.log(`Server running at http://localhost:${port}`);
-// });
+app.use(validateSession)
+app.use('/user', userRouter); 
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
 
 

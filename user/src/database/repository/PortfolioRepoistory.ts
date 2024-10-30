@@ -9,21 +9,24 @@ export class PortfolioRepoistory {
 
     async getPortfolioFromKey(portfolioKey: number) : Promise<Portfolio> {
         try {
-            return undefined;
+            return new Portfolio(portfolioKey);
         }
         catch(error) {
             console.log(error)
-            return undefined;
+            return new Portfolio(portfolioKey);
         }
 
     }
 
     async put(portfolio: Portfolio) : Promise<Portfolio> {
         // implement here 
+        return portfolio;
     }
 
     async patch(portfolioKey: number, portfolio: Portfolio) : Promise<Portfolio> {
         // Implement here 
+
+        return portfolio;
     }
 
     async delete(portfolioKey: number) : Promise<void> {
