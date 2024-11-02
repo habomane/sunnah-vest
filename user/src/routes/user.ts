@@ -5,4 +5,5 @@ export const userRouter = express.Router();
 const userController = new UserController();
 
 // Route only concerned with HTTP Layer
-userRouter.get("/hello", userController.sayHello);
+
+userRouter.post("/login", userController.logUser);

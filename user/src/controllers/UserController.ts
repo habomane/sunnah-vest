@@ -1,8 +1,12 @@
 import { Request, Response } from 'express';
+import { UserService } from '../services';
 
 export class UserController {
+    userService: UserService;
 
-    sayHello (req: Request, res: Response) {
-        res.send("hello");
+    constructor() { this.userService = new UserService(); }
+
+    logUser (req: Request, res: Response) {
+        res.send(req.body["email"]);
     }
 } 

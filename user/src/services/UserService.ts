@@ -1,4 +1,5 @@
 import { User, UserRepository } from "../database";
+import { ErrorResponse } from "../models";
 
 export class UserService {
     userRepository: UserRepository
@@ -15,7 +16,7 @@ export class UserService {
         return await this.userRepository.validateUser(userName, pwdHash);
     }
 
-    async signUp(user: User) : Promise<User | null> {
+    async createUser(user: User) : Promise<User | ErrorResponse> {
         return await this.userRepository.put(user);
     }
 

@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/*",
     "dev": "node --env-file=.env --watch -r ts-node/register src/index.ts",
     "test": "jest"
   },
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@libsql/client": "^0.14.0",
+    "body-parser": "^1.20.3",
     "express": "^4.21.1",
     "express-validator": "^7.2.0"
   }
