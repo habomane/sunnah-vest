@@ -1,15 +1,16 @@
 import { Client } from "@libsql/client/.";
 import { User } from "../models";
 import { tursoDB } from "../connection";
-import { createUserQuery, getUserByKeyQuery } from "../../queries/UserQueries";
-import { ErrorResponse } from "../../models";
+import { createUserQuery, getUserByKeyQuery, getUserByLoginQuery } from "../../queries/UserQueries";
+import { UserLoginDTO } from "../../models";
+import { HttpException, HTTP_RESPONSE_CODE, APP_ERROR_MESSAGE } from "../../error-handling";
 
 export class UserRepository {
     db: Client;
 
     constructor() { this.db = tursoDB; }
 
-    async get() : Promise<User[]> {
+    get = async () : Promise<User[]> => {
         try {
             return []
         }
@@ -20,7 +21,7 @@ export class UserRepository {
 
     }
 
-    async getUserFromKey(userKey: string) : Promise<User | null>  {
+    getUserFromKey = async (userKey: string) : Promise<User | null>  => {
         try {
             return null;
         }
@@ -31,11 +32,11 @@ export class UserRepository {
 
     }
 
-    async put(user: User) : Promise<User | ErrorResponse> {
+    put = async (user: User) : Promise<User | HttpException> => {
         try {
             await this.db.execute({
                 sql: createUserQuery,
-                args: [user.userKey, user.firstName, user.lastName, user.emailAddress, user.pwdHash]
+                args: [user.userKey, user.firstName, user.lastName, user.emailAddressHash, user.passwordHash]
             })
 
             const createdUser = await this.db.execute({
@@ -43,30 +44,52 @@ export class UserRepository {
                 args: [user.userKey]
             })
 
-            if(createdUser.rows.length === 0) { throw new Error("No data return"); }
+            if(createdUser.rows.length === 0) { throw new HttpException(HTTP_RESPONSE_CODE.SERVER_ERROR, APP_ERROR_MESSAGE.serverError); }
 
             console.log(createdUser.toJSON())
 
-             return new ErrorResponse("");
+             return user;
         }
         catch(error: unknown)
         {
-            const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
-            return new ErrorResponse(errorMessage);
+            const exception = error instanceof HttpException ? error : new  HttpException(HTTP_RESPONSE_CODE.SERVER_ERROR, APP_ERROR_MESSAGE.serverError);
+            return exception;
         }
     }
 
-    async patch(userKey: string, user: User) : Promise<User | null> {
+    patch = async (userKey: string, user: User) : Promise<User | null> => {
         // implement here 
         return null;
     }
-    async delete(userKey: string) : Promise<void> {
+    delete = async (userKey: string) : Promise<void> => {
         // implement here 
     }
 
-    async validateUser(emailAddress: string, pwdHash: string) : Promise<User | null> {
+    validateUser = async (user: UserLoginDTO) : Promise<User | HttpException> => {
         // implement here 
-        return null;
+        try {
+            console.log("at least im here")
+            const validatedUser = await this.db.execute({
+                sql: getUserByLoginQuery,
+                args: [user.email, user.password]
+            });
+
+            console.log("still here?")
+
+            if(validatedUser.rows.length == 0) { throw new HttpException(HTTP_RESPONSE_CODE.NOT_FOUND, APP_ERROR_MESSAGE.invalidCredentials);}
+
+            const res = validatedUser.toJSON();
+            console.log("here");
+            return new User(res["userKey"], res["username"], res["firstName"], 
+                res["lastName"], res["emailAddress"], res["password"]
+            );
+
+        }
+        catch(error: unknown)
+        {
+            const exception = error instanceof HttpException ? error : new  HttpException(HTTP_RESPONSE_CODE.SERVER_ERROR, APP_ERROR_MESSAGE.serverError);
+            return exception;
+        }
     }
 
 

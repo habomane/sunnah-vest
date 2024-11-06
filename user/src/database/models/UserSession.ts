@@ -18,4 +18,13 @@ export class UserSession {
         this.dateSessionExpiration = dateSessionExpiration;
 
     }
+
+
+    expired() : boolean {
+        if(this.dateSessionExpiration > new Date()) {
+            return false;
+        }
+
+        return true;
+    }
 }

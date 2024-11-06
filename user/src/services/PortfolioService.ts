@@ -7,20 +7,20 @@ export class PortfolioServicee {
         this.portfolioRepository = new PortfolioRepoistory();
     }
 
-    async getPortfolio(portfolioKey: number): Promise<Portfolio> {
+    getPortfolio = async (portfolioKey: number): Promise<Portfolio> => {
         return this.portfolioRepository.getPortfolioFromKey(portfolioKey);
     }
 
-    async put(portfolio: Portfolio) : Promise<Portfolio> {
+    put = async (portfolio: Portfolio) : Promise<Portfolio> => {
         return await this.portfolioRepository.put(portfolio);
     }
 
-    async delete(portfolioKey: number): Promise<void> {
+    delete = async (portfolioKey: number): Promise<void> => {
         await this.portfolioRepository.delete(portfolioKey);
 
     }
 
-    async update(portfolioKey: number, portfolio: Portfolio): Promise<Portfolio> {
+    update = async (portfolioKey: number, portfolio: Portfolio): Promise<Portfolio> => {
         return await this.portfolioRepository.patch(portfolioKey, portfolio);
     }
 

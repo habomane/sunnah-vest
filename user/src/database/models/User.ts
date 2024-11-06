@@ -1,33 +1,31 @@
-import { UUID } from "crypto";
-
 export class User {
-    userKey: UUID;
+    userKey: string;
     username: string;
     firstName: string;
     lastName: string;
-    emailAddress: string;
-    pwdHash: string;
-    accountTypeKey: number;
-    portfolioKey: number;
+    emailAddressHash: string;
+    passwordHash: string;
 
-    constructor (userKey: UUID,
+    constructor (userKey: string,
         username: string,
         firstName: string,
         lastName: string,
         emailAddress: string,
-        pwdHash: string,
-        accountTypeKey: number,
-        portfolioKey: number
+        password: string
     ) 
     {
         this.userKey = userKey;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.emailAddress = emailAddress;
-        this.pwdHash = pwdHash;
-        this.accountTypeKey = accountTypeKey;
-        this.portfolioKey = portfolioKey;
+        this.emailAddressHash = this.hash(emailAddress);
+        this.passwordHash = this.hash(password);
 
     }
+
+    hash(item: string) : string {
+        // Implement hashing 
+        return item;
+    }
+
 }

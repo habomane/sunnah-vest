@@ -1,5 +1,6 @@
 import { User, UserRepository } from "../database";
-import { ErrorResponse } from "../models";
+import { HttpException } from "../error-handling";
+import { UserDTO, UserLoginDTO } from "../models";
 
 export class UserService {
     userRepository: UserRepository
@@ -8,23 +9,24 @@ export class UserService {
         this.userRepository = new UserRepository();
     }
 
-    async getUser(userKey: string): Promise<User | null> {
+    getUser = async (userKey: string): Promise<User | null> => {
         return this.userRepository.getUserFromKey(userKey);
     }
 
-    async signIn(userName: string, pwdHash: string) : Promise<User | null> {
-        return await this.userRepository.validateUser(userName, pwdHash);
+    signIn = async (userLogin : UserLoginDTO) : Promise<User | HttpException> => {
+        console.log("sign in ")
+        return await this.userRepository.validateUser(userLogin);
     }
 
-    async createUser(user: User) : Promise<User | ErrorResponse> {
-        return await this.userRepository.put(user);
+    createUser = async (user: UserDTO) : Promise<User | HttpException> => {
+        return await this.userRepository.put(user.toUser());
     }
 
-    async delete(userKey: string): Promise<void> {
+    delete = async (userKey: string): Promise<void> => {
         // Implementation here
     }
 
-    async update(userKey: string, user: User): Promise<User | null> {
+    update = async (userKey: string, user: User): Promise<User | null> => {
         return await this.userRepository.patch(userKey, user);
     }
 

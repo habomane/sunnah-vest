@@ -7,11 +7,11 @@ export class UserSessionRepository {
 
     constructor() { this.db = tursoDB; }
 
-    async getUserSession(sessionKey: string) : Promise<UserSession | null> {
+    getUserSession = async (sessionKey: string) : Promise<UserSession | null> => {
         return null;
     }
 
-    async put(session: UserSession) : Promise<UserSession | null> {
+    put = async (session: UserSession) : Promise<UserSession | null> => {
         // implement here 
         return null;
     }

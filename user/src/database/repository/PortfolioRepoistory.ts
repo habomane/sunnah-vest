@@ -7,7 +7,7 @@ export class PortfolioRepoistory {
 
     constructor() { this.db = tursoDB; }
 
-    async getPortfolioFromKey(portfolioKey: number) : Promise<Portfolio> {
+    getPortfolioFromKey = async (portfolioKey: number) : Promise<Portfolio> => {
         try {
             return new Portfolio(portfolioKey);
         }
@@ -18,18 +18,18 @@ export class PortfolioRepoistory {
 
     }
 
-    async put(portfolio: Portfolio) : Promise<Portfolio> {
+    put = async (portfolio: Portfolio) : Promise<Portfolio> => {
         // implement here 
         return portfolio;
     }
 
-    async patch(portfolioKey: number, portfolio: Portfolio) : Promise<Portfolio> {
+    patch = async (portfolioKey: number, portfolio: Portfolio) : Promise<Portfolio> => {
         // Implement here 
 
         return portfolio;
     }
 
-    async delete(portfolioKey: number) : Promise<void> {
+    delete = async (portfolioKey: number) : Promise<void> => {
         // implement here 
     }
 
