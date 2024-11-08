@@ -20,8 +20,10 @@ export class UserSessionController {
 
         }
         catch(error: unknown) {
-            const exception = error instanceof HttpException ? error : new HttpException(HTTP_RESPONSE_CODE.SERVER_ERROR, APP_ERROR_MESSAGE.serverError);
+            const exception = error instanceof HttpException ? error : new HttpException(HTTP_RESPONSE_CODE.SERVER_ERROR, 
+                                                                                        error instanceof Error? error.message : APP_ERROR_MESSAGE.serverError);
             errorMiddleware(exception, req, res);
+            
         }
 
     }

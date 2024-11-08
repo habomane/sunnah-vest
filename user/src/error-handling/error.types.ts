@@ -10,13 +10,8 @@ export const HTTP_RESPONSE_CODE = {
   
   export const APP_SUCCESS_MESSAGE = {
     createdUser: "User created successfully",
-    eventCreated: "Event created successfully",
-    reviewCreated: "Review created successfully",
     userAuthenticated: "User Authenticated successfully",
-    userReturned: "User Returned successfully",
-    usersReturned: "Users Returned successfully",
-    eventsReturned: "Events Returned successfully",
-    reviewsReturned: "Reviews Returned successfully",
+    userDeleted: "User deleted successfully"
   }
 
   export const APP_ERROR_MESSAGE = {

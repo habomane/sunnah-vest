@@ -7,8 +7,8 @@ export const validateSession = (req: Request, res: Response, next: NextFunction)
     console.log(req.url)
     const userSessionController = new UserSessionController();
     if(req.url === '/user/login' || req.url === "/user/register") { next(); return; }
-
-    userSessionController.retrieveSession(req, res, next);
+next()
+    // userSessionController.retrieveSession(req, res, next);
 
 }
 

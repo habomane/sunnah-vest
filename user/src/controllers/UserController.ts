@@ -21,13 +21,14 @@ export class UserController {
 
             setCookies(req, res, () => {
 
-                res.send(JSON.stringify(userReturned));
+                res.status(userReturned.status).send(JSON.stringify(userReturned));
             });
 
 
         }
         catch(error: unknown) {
-            const exception = error instanceof HttpException ? error : new HttpException(HTTP_RESPONSE_CODE.SERVER_ERROR, APP_ERROR_MESSAGE.serverError);
+            const exception = error instanceof HttpException ? error : new HttpException(HTTP_RESPONSE_CODE.SERVER_ERROR, 
+                                                                                        error instanceof Error? error.message : APP_ERROR_MESSAGE.serverError);
             errorMiddleware(exception, req, res);
             
         }
@@ -37,20 +38,41 @@ export class UserController {
     registerUser = async (req: Request, res: Response) => {
         try {
             const validation = validationResult(req);
-            if(!validation.isEmpty()) { throw new Error("Bad request")}
+            if(!validation.isEmpty()) { throw new HttpException(HTTP_RESPONSE_CODE.BAD_REQUEST, APP_ERROR_MESSAGE.invalidRequest)}
             const user = new UserDTO(req.body);
 
             const createdUser = await this.userService.createUser(user);
 
-            res.send(JSON.stringify(createdUser))
+            res.status(createdUser.status).send(JSON.stringify(createdUser))
 
 
 
         }
         catch(error: unknown) {
-            const exception = error instanceof HttpException ? error : new HttpException(HTTP_RESPONSE_CODE.SERVER_ERROR, APP_ERROR_MESSAGE.serverError);
+            const exception = error instanceof HttpException ? error : new HttpException(HTTP_RESPONSE_CODE.SERVER_ERROR, 
+                                                                                        error instanceof Error? error.message : APP_ERROR_MESSAGE.serverError);
             errorMiddleware(exception, req, res);
+            
         }
 
+    }
+
+
+    deleteUser = async (req: Request, res: Response) => {
+        try {
+            const param = req.params["userKey"];
+            if(param === undefined) { throw new HttpException(HTTP_RESPONSE_CODE.BAD_REQUEST, APP_ERROR_MESSAGE.invalidRequest)}
+
+            const response = await this.userService.delete(param);
+
+            res.status(response.status).send(JSON.stringify(response))
+
+        }
+        catch(error: unknown) {
+            const exception = error instanceof HttpException ? error : new HttpException(HTTP_RESPONSE_CODE.SERVER_ERROR, 
+                                                                                        error instanceof Error? error.message : APP_ERROR_MESSAGE.serverError);
+            errorMiddleware(exception, req, res);
+            
+        }
     }
 } 

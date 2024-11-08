@@ -8,3 +8,4 @@ const userController = new UserController();
 
 userRouter.post("/register", registerUserValidation, userController.registerUser);
 userRouter.post("/login", loginUserValidation, userController.logUser);
+userRouter.delete("/delete/:userKey", userController.deleteUser)
